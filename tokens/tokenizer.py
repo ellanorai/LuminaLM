@@ -934,21 +934,11 @@ class DatasetProcessor:
             
             # Load dataset
             try:
-                if dataset_name == "Trelis/tiny-shakespeare":
-                    # Handle streaming for tiny-shakespeare
-                    dataset = load_dataset(
-                        dataset_name,
-                        streaming=True,
-                        split='train'
-                    )
-                    return self._process_streaming_dataset(dataset, dataset_output_dir)
-                else:
-                    # Handle regular datasets
-                    dataset = load_dataset(
-                        dataset_name,
-                        split=config.get('config', {}).get('split', 'train')
-                    )
-                    return self._process_regular_dataset(dataset, dataset_output_dir)
+                dataset = load_dataset(
+                dataset_name,
+                split=config.get('config', {}).get('split', 'train')
+                )
+                return self._process_regular_dataset(dataset, dataset_output_dir)
                     
             except Exception as e:
                 logging.error(f"Error loading dataset {dataset_name}: {str(e)}")
